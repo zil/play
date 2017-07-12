@@ -21,7 +21,7 @@ public class Stack<T> {
 		return ll.size();
 	}
 	boolean isEmpty(){
-		return ll.empty();
+		return ll.isEmpty();
 	}
 	
 	public static void main(String[] args) {

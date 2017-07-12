@@ -30,14 +30,14 @@ public class LinkedList<T> {
 		return size;
 	}
 
-	public boolean empty() {
+	public boolean isEmpty() {
 		return size == 0;
 	}
 
-	void add(T val) {
-		assert null != val;
-		Node node = new Node(null, val);
-		if (empty()) {
+	void add(T item) {
+		assert null != item;
+		Node node = new Node(null, item);
+		if (isEmpty()) {
 			head = node;
 			tail = node;
 		} else {
@@ -47,9 +47,9 @@ public class LinkedList<T> {
 		size++;
 	}
 
-	void addToHead(T val) {
-		Node node = new Node(null, val);
-		if (empty()) {
+	void addToHead(T item) {
+		Node node = new Node(null, item);
+		if (isEmpty()) {
 			head = node;
 			tail = node;
 		} else {
@@ -59,11 +59,11 @@ public class LinkedList<T> {
 		size++;
 	}
 
-	void remove(T val) {
+	void remove(T item) {
 		Node cur = head;
 		Node prev = null;
 		while (cur != null) {
-			if (val == cur.val) {
+			if (item == cur.val) {
 				if (cur == head) {
 					head = cur.next;
 				} else {
@@ -95,10 +95,10 @@ public class LinkedList<T> {
 		return null;
 	}
 
-	boolean contains(T val) {
+	boolean contains(T item) {
 		Node cur = head;
 		while (cur != null) {
-			if (cur.val == val) {
+			if (cur.val == item) {
 				return true;
 			}
 			cur = cur.next;
