@@ -1,4 +1,4 @@
-package fun.play.alog.list;
+package fun.play.alog;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Assert;
