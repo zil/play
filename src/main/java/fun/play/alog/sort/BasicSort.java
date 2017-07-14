@@ -1,7 +1,5 @@
 package fun.play.alog.sort;
 
-import javax.sound.midi.SysexMessage;
-
 @SuppressWarnings("rawtypes")
 public class BasicSort {
 	public static void selectSort(Comparable[] items) {
