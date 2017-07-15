@@ -27,6 +27,10 @@ public abstract class SortBase {
 		}
 	}
 	
+	static boolean less(Comparable c, Comparable v) {
+		return c.compareTo(v) < 0;
+	}
+	
 	public static boolean less(Comparable[] items,int i, int j) {
 		return items[i].compareTo(items[j]) < 0;
 	}
