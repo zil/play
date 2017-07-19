@@ -4,7 +4,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Assert;
 
 public class RBTree<K extends Comparable<K>, V> {
-	class Node{
+	class Node{//144B
 		K key;
 		V val;
 		int color;
@@ -162,12 +162,18 @@ public class RBTree<K extends Comparable<K>, V> {
     } 
 
     public static void main(String[] args) {
+    	System.gc();
+    	int oneMega = 1000_000;
+    	System.err.println("before:" + Runtime.getRuntime().totalMemory()/oneMega + "M");
         RBTree<String, Integer> st = new RBTree<String, Integer>();
-        int N = 100_0000;
+        int N = 1000_0000;
         for (int i = 0; i < N; i++){
         	st.put(RandomStringUtils.randomAlphanumeric(20), i); 
         }
-        
+        System.gc();
+        System.err.println("after:" + Runtime.getRuntime().totalMemory()/oneMega + "M");
+        //expected N * 144B = 1440M
+        //real: 1525M - 60M = 1465M
         Assert.assertTrue(st.check());
         Assert.assertEquals(N,st.size());
 
