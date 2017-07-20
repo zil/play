@@ -1,5 +1,7 @@
 package fun.play.alog;
 
+import java.util.Objects;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Assert;
 
@@ -34,7 +36,7 @@ public class LinkedList<T> {
 		return size == 0;
 	}
 
-	void add(T item) {
+	public void add(T item) {
 		assert null != item;
 		Node node = new Node(null, item);
 		if (isEmpty()) {
@@ -59,11 +61,11 @@ public class LinkedList<T> {
 		size++;
 	}
 
-	void remove(T item) {
+	public void remove(T item) {
 		Node cur = head;
 		Node prev = null;
 		while (cur != null) {
-			if (item == cur.val) {
+			if (Objects.equals(item,cur.val)) {
 				if (cur == head) {
 					head = cur.next;
 				} else {
@@ -82,7 +84,7 @@ public class LinkedList<T> {
 		}
 	}
 
-	T removeHead() {
+	public T removeHead() {
 		if (head != null) {
 			T ret = head.val;
 			head = head.next;
@@ -95,10 +97,21 @@ public class LinkedList<T> {
 		return null;
 	}
 
-	boolean contains(T item) {
+	public T get(T item){
 		Node cur = head;
 		while (cur != null) {
-			if (cur.val == item) {
+			if (Objects.equals(cur.val,item)) {
+				return cur.val;
+			}
+			cur = cur.next;
+		}
+		return null;
+	}
+	
+	public boolean contains(T item) {
+		Node cur = head;
+		while (cur != null) {
+			if (Objects.equals(cur.val,item)) {
 				return true;
 			}
 			cur = cur.next;
@@ -106,6 +119,20 @@ public class LinkedList<T> {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer(this.getClass().getSimpleName());
+		sb.append(" [");
+		Node cur = head;
+		while (cur != null) {
+			if(head != cur)sb.append(" -> ");
+			sb.append(cur.val);
+			cur = cur.next;
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
 	public static void main(String[] args) {
 		LinkedList<String> linkedList = new LinkedList<>();
 		int i = 0;
