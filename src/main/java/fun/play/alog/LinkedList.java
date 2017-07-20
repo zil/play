@@ -1,11 +1,13 @@
 package fun.play.alog;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Objects;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Assert;
 
-public class LinkedList<T> {
+public class LinkedList<T> implements Collection<T>{
 	private class Node {
 		Node next;
 		T val;
@@ -36,7 +38,7 @@ public class LinkedList<T> {
 		return size == 0;
 	}
 
-	public void add(T item) {
+	public boolean add(T item) {
 		assert null != item;
 		Node node = new Node(null, item);
 		if (isEmpty()) {
@@ -47,6 +49,7 @@ public class LinkedList<T> {
 			tail = node;
 		}
 		size++;
+		return true;
 	}
 
 	void addToHead(T item) {
@@ -61,7 +64,7 @@ public class LinkedList<T> {
 		size++;
 	}
 
-	public void remove(T item) {
+	public boolean remove(Object item) {
 		Node cur = head;
 		Node prev = null;
 		while (cur != null) {
@@ -77,11 +80,12 @@ public class LinkedList<T> {
 				}
 				size--;
 				cur = null;
-				break;
+				return true;
 			}
 			prev = cur;
 			cur = cur.next;
 		}
+		return false;
 	}
 
 	public T removeHead() {
@@ -108,7 +112,7 @@ public class LinkedList<T> {
 		return null;
 	}
 	
-	public boolean contains(T item) {
+	public boolean contains(Object item) {
 		Node cur = head;
 		while (cur != null) {
 			if (Objects.equals(cur.val,item)) {
@@ -161,5 +165,82 @@ public class LinkedList<T> {
 
 		}
 
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		return new Iterator<T>() {
+			Node cur = head;
+			
+			@Override
+			public boolean hasNext() {
+				return cur != null; 
+			}
+
+			@Override
+			public T next() {
+				T next = cur.val;
+				cur = cur.next;
+				return next;
+			}
+		};
+	}
+
+	@Override
+	public Object[] toArray() {
+		Object[] objs = new Object[size()];
+		int j = 0;
+		Node cur = head;
+		while(cur != null){
+			objs[j++] = cur.val;
+			cur = cur.next;
+		}
+		return objs;
+	}
+
+	@SuppressWarnings("hiding")
+	@Override
+	public <T> T[] toArray(T[] a) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		for (Object object : c) {
+			if(!contains(object))return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean addAll(Collection<? extends T> c) {
+		for (T t : c) {
+			add(t);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean removeAll(Collection<?> c) {
+		for (Object object : c) {
+			if(!remove(object))return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean retainAll(Collection<?> c) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void clear() {
+		LinkedList<T>.Node cur = head;
+		while(cur != null){
+			LinkedList<T>.Node next = cur.next;
+			cur = null;
+			cur = next;
+		}
+		size = 0;
 	}
 }
