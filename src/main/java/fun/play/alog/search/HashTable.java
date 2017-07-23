@@ -125,7 +125,7 @@ public class HashTable<K,V> {
 	}
 
 	private int hash(K k) {
-		return Math.abs(Objects.hashCode(k));
+		return Objects.hashCode(k) & 0x7FFFFFFF;
 	}
 	
 	@Override
