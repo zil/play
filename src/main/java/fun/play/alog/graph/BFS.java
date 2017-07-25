@@ -7,7 +7,7 @@ import com.google.common.base.Joiner;
 import fun.play.alog.Queue;
 import fun.play.alog.Stack;
 
-public class BFS {
+public class BFS implements Path{
 	private final int s;
 	private boolean marked[];
 	private int edgeTo[];
@@ -36,26 +36,27 @@ public class BFS {
 		}
 	}
 	
-	public boolean hasPathTo(int v){
+	public boolean hasPath(int v){
 		return marked[v];
 	}
 
-	public String pathTo(int v){
-		if(!hasPathTo(v)) throw new IllegalStateException("no path to " + v); 
+	public Iterable<Integer> pathTo(int v){
+		if(!hasPath(v)) throw new IllegalStateException("no path to " + v); 
 		
 		Stack<Integer> stack = new Stack<>();
 		for (int i = v; i != s; i=edgeTo[i]) {
 			stack.push(i);
 		}
 		stack.push(this.s);
-		return Joiner.on("->").join(stack);
+		return stack;
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		Graph g = new Graph(Graph.class.getResourceAsStream("mediumG.txt"));
 		BFS bfs = new BFS(g, 3);
-		for (int v=1;v < g.V();v++) {
-			if(bfs.hasPathTo(v))System.err.println(bfs.pathTo(v));
+		Joiner joiner = Joiner.on("->");
+		for (int v=0;v < g.V();v++) {
+			if(bfs.hasPath(v))System.err.println(joiner.join(bfs.pathTo(v)));
 		}
 	}
 }
