@@ -9,20 +9,26 @@ public class Queue<T> {
 	private LinkedList<T> ll;
 	public Queue() { this.ll = new LinkedList<>(); }
 	
-	void add(T item){
+	public void add(T item){
 		ll.add(item);
 	}
-	T take(){
+	public T take(){
 		return ll.removeHead();
 	}
-	T peek(){
+	
+	public T peek(){
 		return ll.head();
 	}
-	int size(){
+	public int size(){
 		return ll.size();
 	}
-	boolean isEmpty(){
+	
+	public boolean isEmpty(){
 		return ll.isEmpty();
+	}
+	
+	public boolean isNotEmpty(){
+		return ll.size() > 0;
 	}
 	
 	public static void main(String[] args) throws InterruptedException {

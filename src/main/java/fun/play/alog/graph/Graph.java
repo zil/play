@@ -57,6 +57,10 @@ public class Graph {
 		return this.E;
 	}
 	
+	public int V(){
+		return this.adj.length;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

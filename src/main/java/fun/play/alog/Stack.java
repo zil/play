@@ -1,26 +1,28 @@
 package fun.play.alog;
 
+import java.util.Iterator;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Assert;
 
-public class Stack<T> {
+public class Stack<T> implements Iterable<T>{
 	LinkedList<T> ll;
 	public Stack() {
 		ll = new LinkedList<>();
 	}
-	void push(T val){
+	public void push(T val){
 		ll.addToHead(val);
 	}
-	T pop(){
+	public T pop(){
 		return ll.removeHead();
 	}
-	T head(){
+	public T head(){
 		return ll.head();
 	}
-	int size(){
+	public int size(){
 		return ll.size();
 	}
-	boolean isEmpty(){
+	public boolean isEmpty(){
 		return ll.isEmpty();
 	}
 	
@@ -47,5 +49,9 @@ public class Stack<T> {
 			stack.push(s3); realStack.push(s3);
 		}
 		
+	}
+	@Override
+	public Iterator<T> iterator() {
+		return ll.iterator();
 	}
 }
