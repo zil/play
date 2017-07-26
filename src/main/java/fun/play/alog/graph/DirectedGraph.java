@@ -6,11 +6,12 @@ import java.util.Scanner;
 
 import fun.play.alog.LinkedList;
 
-public class Graph {
+public class DirectedGraph {
 	private LinkedList<Integer>[] adj;
 	private int E = 0;
+	private int[] indegree;
 	
-	public Graph(InputStream in) {
+	public DirectedGraph(InputStream in) {
 		try(Scanner scanner = new Scanner(in)){
 			int V = scanner.nextInt();
 			int E = scanner.nextInt();
@@ -28,16 +29,18 @@ public class Graph {
 				scanner.nextLine();
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
 			throw new IllegalStateException("图的内容有误:"+e.getMessage());
 		}
 	}
 	
-	public Graph(int vertex) {
+	public DirectedGraph(int vertex) {
 		init(vertex);
 	}
 
 	@SuppressWarnings("unchecked")
 	private void init(int vertex) {
+		indegree = new int[vertex];
 		adj = new LinkedList[vertex];
 		for (int i = 0; i < adj.length; i++) {
 			adj[i] = new LinkedList<>();
@@ -46,12 +49,20 @@ public class Graph {
 	
 	public void addEdge(int u,int v){
 		adj[u].add(v);
-		adj[v].add(u);
+		indegree[v]++;
 		E++;
 	}
 	
 	public Iterable<Integer> adj(int v){
 		return adj[v];
+	}
+	
+	public int inDegree(int v){
+		return indegree[v];
+	}
+	
+	public int outDegree(int v){
+		return adj[v].size();
 	}
 	
 	public int E() {
@@ -74,7 +85,7 @@ public class Graph {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		Graph graph = new Graph(Graph.class.getResourceAsStream("mediumG.txt"));
+		DirectedGraph graph = new DirectedGraph(DirectedGraph.class.getResourceAsStream("mediumDG.txt"));
 		System.err.println(graph);
 	}
 	
