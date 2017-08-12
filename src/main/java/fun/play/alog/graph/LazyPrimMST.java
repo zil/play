@@ -40,9 +40,10 @@ public class LazyPrimMST {
     }
 
     public static void main(String[] args) {
-        Graph graph = new Graph(Graph.class.getResourceAsStream("mediumG.txt"));
-        EdgedWeighedGraph edgedWeighedGraph = new EdgedWeighedGraph(graph);
+        EdgedWeighedGraph edgedWeighedGraph = new EdgedWeighedGraph(LazyPrimMST.class.getResourceAsStream("/mediumEWG.txt"));
         LazyPrimMST lazyPrimMST = new LazyPrimMST(edgedWeighedGraph);
-        System.out.println(lazyPrimMST.edges());
+        for(Edge e: lazyPrimMST.edges()){
+            System.out.println(e);
+        }
     }
 }

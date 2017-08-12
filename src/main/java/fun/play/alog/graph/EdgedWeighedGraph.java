@@ -2,21 +2,45 @@ package fun.play.alog.graph;
 
 import fun.play.alog.LinkedList;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 /**
  * Created by li on 8/12/17.
  */
 public class EdgedWeighedGraph {
-    private final int V;
+    private int V;
     private int E;
     private final LinkedList<Edge>[] adj;
 
-    public EdgedWeighedGraph(Graph g) {
-        this.V = g.V();
-        this.E = 0;
-        this.adj = (LinkedList<Edge>[]) new LinkedList[V];
-        for(int v = 0; v < V; v++){
-            this.adj[v] = new LinkedList<>();
+    public EdgedWeighedGraph(InputStream in) {
+        try(Scanner scanner = new Scanner(in)){
+            V = scanner.nextInt();
+            E = scanner.nextInt();
+            this.adj = (LinkedList<Edge>[]) new LinkedList[V];
+            for (int j = 0; j < V; j++) {
+                this.adj[j] = new LinkedList<>();
+            }
+            scanner.nextLine();
+            for (int i = 0; i < E; i++) {
+
+                int v = scanner.nextInt();
+                scanner.skip("\\s+");
+                int w = scanner.nextInt();
+                scanner.skip("\\s+");
+                double weight = scanner.nextDouble();
+
+                if(v > V - 1 || w > V - 1){
+                    System.err.printf("illegal edge[u=%d,v=%d]\n",v,w);
+                    continue;
+                }
+                addEdge(new Edge(v,w,weight));
+                scanner.nextLine();
+            }
+        }catch (Exception e) {
+            throw new IllegalStateException("图的内容有误:",e);
         }
+
     }
 
     public int V() {
@@ -31,7 +55,6 @@ public class EdgedWeighedGraph {
         int v = e.either(), w = e.other(v);
         adj[v].add(e);
         adj[w].add(e);
-        E++;
     }
 
     public Iterable<Edge> adj(int v){
