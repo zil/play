@@ -1,10 +1,10 @@
 package fun.play.alog.graph;
 
+import fun.play.alog.LinkedList;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
-
-import fun.play.alog.LinkedList;
 
 public class Graph {
 	private LinkedList<Integer>[] adj;
@@ -28,7 +28,7 @@ public class Graph {
 				scanner.nextLine();
 			}
 		}catch (Exception e) {
-			throw new IllegalStateException("图的内容有误:"+e.getMessage());
+			throw new IllegalStateException("图的内容有误:",e);
 		}
 	}
 	
@@ -74,6 +74,7 @@ public class Graph {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
+		System.out.println(Graph.class.getResource("/fun/play/alog/graph/mediumG.txt"));
 		Graph graph = new Graph(Graph.class.getResourceAsStream("mediumG.txt"));
 		System.err.println(graph);
 	}
