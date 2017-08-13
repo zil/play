@@ -34,7 +34,7 @@ public class Counting {
     	Stopwatch stopwatch = Stopwatch.createStarted();
     	String line;
     	try ( JedisPool pool = new JedisPool();
-    		  InputStream in = TheProducer.class.getResourceAsStream("uber-raw-data-janjune-15.csv")){
+    		  InputStream in = TheProducer.class.getResourceAsStream("/uber-raw-data-janjune-15.csv")){
   
     		//Stream<String>
     		LineNumberReader lineNumberReader;//行数太多，需流式读入，否则一次读入堆会溢出

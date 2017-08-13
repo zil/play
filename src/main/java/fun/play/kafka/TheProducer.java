@@ -28,7 +28,7 @@ public class TheProducer
 	Stopwatch stopwatch = Stopwatch.createStarted();
 	Producer<String, String> producer = newProducer();
 	String line;
-	try (InputStream in = TheProducer.class.getResourceAsStream("uber-raw-data-janjune-15.csv")){
+	try (InputStream in = TheProducer.class.getResourceAsStream("/uber-raw-data-janjune-15.csv")){
 	    LineNumberReader lineNumberReader;//行数太多，需流式读入，否则一次读入堆会溢出
 	    lineNumberReader = new LineNumberReader(new InputStreamReader(in, Charsets.UTF_8));
 			
